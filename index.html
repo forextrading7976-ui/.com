@@ -398,31 +398,35 @@
     const TELEGRAM_URL = "https://t.me/+4OfhgIe-EygxNmNl"; // 👈 REPLACE WITH YOUR TELEGRAM LINK
 
     // 2. Strict tracking logic (Fires 'Subscribe' only once per session/visit)
-    let isTracked = false;
-
-    const joinBtn = document.getElementById('telegramJoinBtn');
+const joinBtn = document.getElementById('telegramJoinBtn');
 
     if (joinBtn) {
-      joinBtn.addEventListener('click', function(event) {
-        event.preventDefault();
+        joinBtn.addEventListener('click', function(event) {
+            event.preventDefault();
 
-        if (!isTracked && !sessionStorage.getItem('fb_subscribed_fired')) {
-          if (typeof fbq === 'function') {
-            fbq('track', 'Subscribe', {
-              content_name: 'ગુજરાતી TRADER Telegram',
-              status: 'success'
-            });
-          }
-          isTracked = true;
-          sessionStorage.setItem('fb_subscribed_fired', 'true');
-        }
+            // 1. Meta Pixel Tracking
+            if (typeof fbq === 'function') {
+                fbq('track', 'Subscribe', {
+                    content_name: 'ગુજરાતી TRADER Telegram',
+                    status: 'success'
+                });
+            }
 
-        // 150ms buffer ensures Meta receives the event beacon before redirect
-        setTimeout(() => {
-          window.location.href = TELEGRAM_URL;
-        }, 150);
-      });
-    }
+            // 2. Telegram Deep Link (Direct App Open Karega)
+            var appUrl = "tg://join?invite=4OfhgIe-EygxNmNl";
+            var webUrl = "https://t.me/+4OfhgIe-EygxNmNl";
+
+            var start = Date.now();
+            window.location.href = appUrl;
+
+            // 3. Fallback: Agar App open na ho toh Web Link khulega
+            setTimeout(function() {
+                if (Date.now() - start < 2000) {
+                    window.location.href = webUrl;
+                }
+            }, 1500);
+        });
+    }   
   </script>
 </body>
 </html>
