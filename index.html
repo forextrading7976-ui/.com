@@ -397,22 +397,65 @@
     // 1. Enter your Telegram Channel link below
     const TELEGRAM_URL = "https://t.me/+4OfhgIe-EygxNmNl"; // 👈 REPLACE WITH YOUR TELEGRAM LINK
 
-    // 2. Strict tracking logic (Fires 'Subscribe' only once per session/visit)
-const joinBtn = document.getElementById('telegramJoinBtn');
+  // 2. Strict Single Fire Lock
+
+    let isTracked = false;
+
+    const joinBtn = document.getElementById('telegramJoinBtn');
+
+
 
     if (joinBtn) {
-        joinBtn.addEventListener('click', function(event) {
-            event.preventDefault();
 
-            // 1. Meta Pixel Tracking
-            if (typeof fbq === 'function') {
-                fbq('track', 'Subscribe', {
-                    content_name: 'ગુજરાતી TRADER Telegram',
-                    status: 'success'
-                });
-            }
+      joinBtn.addEventListener('click', function(event) {
 
-            // 2. Telegram Deep Link (Direct App Open Karega)
+        event.preventDefault();
+
+
+
+        // अगर पहले से 1 बार क्लिक हो चुका है, तो दोबारा फायर नहीं होगा
+
+        if (!isTracked) {
+
+          isTracked = true; // Lock लग गया
+
+
+
+          if (typeof fbq === 'function') {
+
+            fbq('track', 'Subscribe', {
+
+              content_name: 'ગુજરાતી TRADER Telegram',
+
+              status: 'success'
+
+            });
+
+          }
+
+        }
+
+
+
+        // 2. Telegram Deep Link (सीधे ऐप खोलेगा)
+
+        var appUrl = "tg://join?invite=4OfhgIe-EygxNmNl";
+
+        var webUrl = "https://t.me/+4OfhgIe-EygxNmNl";
+
+        
+
+        window.location.href = appUrl;
+
+        setTimeout(function() {
+
+          window.location.href = webUrl;
+
+        }, 1500);
+
+      });
+
+    }
             var appUrl = "tg://join?invite=4OfhgIe-EygxNmNl";
             var webUrl = "https://t.me/+4OfhgIe-EygxNmNl";
 
