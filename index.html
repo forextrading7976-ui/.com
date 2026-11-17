@@ -24,7 +24,7 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     
-     fbq('init', '1438569705047789');
+    fbq('init', '1438569705047789');
     fbq('track', 'PageView');
   </script>  
  
@@ -72,7 +72,6 @@
       text-align: center;
     }
 
-    /* 1. Live Online Pill */
     .online-pill {
       display: inline-flex;
       align-items: center;
@@ -101,7 +100,6 @@
       100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
-    /* 2. Circular Logo */
     .avatar-wrapper {
       margin-bottom: 16px;
       display: flex;
@@ -118,7 +116,6 @@
       box-shadow: 0 10px 25px rgba(27, 99, 242, 0.15), 0 4px 12px rgba(0, 0, 0, 0.06);
     }
 
-    /* 3. Title & Subtitle */
     h1.brand-title {
       font-size: 1.65rem;
       font-weight: 800;
@@ -138,7 +135,6 @@
       margin-bottom: 8px;
     }
 
-    /* 4. Rating Stars */
     .reviews-container {
       margin-bottom: 22px;
     }
@@ -156,7 +152,6 @@
       font-weight: 500;
     }
 
-    /* 5. Stats Grid (3 Boxes) */
     .stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -185,7 +180,6 @@
       font-weight: 500;
     }
 
-    /* 6. Blue CTA Button */
     .cta-btn {
       display: flex;
       align-items: center;
@@ -211,7 +205,6 @@
       background: var(--primary-blue-hover);
     }
 
-    /* 7. Pitch Headline */
     .pitch-section {
       margin-bottom: 22px;
     }
@@ -234,7 +227,6 @@
       font-weight: 500;
     }
 
-    /* 8. Limited Access Banner */
     .access-banner {
       background: var(--accent-orange-bg);
       color: var(--accent-orange-text);
@@ -250,7 +242,6 @@
       margin-bottom: 16px;
     }
 
-    /* 9. Feature Cards (Centered) */
     .feature-list {
       display: flex;
       flex-direction: column;
@@ -265,10 +256,10 @@
       padding: 16px 18px;
       display: flex;
       align-items: center;
-      justify-content: center; /* 👈 Centers content horizontally */
+      justify-content: center;
       gap: 10px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
-      text-align: center;      /* 👈 Centers text */
+      text-align: center;
     }
 
     .feature-icon {
@@ -284,7 +275,6 @@
       color: #1e293b;
     }
 
-    /* 10. Footer Disclaimer */
     footer {
       border-top: 1px solid #e2e8f0;
       padding-top: 18px;
@@ -305,31 +295,26 @@
 
   <div class="wrapper">
     
-    <!-- Online Traders Pill -->
     <div class="online-pill">
       <span class="pulse-dot"></span>
       <span>5,947 Traders Online Now</span>
     </div>
 
-    <!-- Circular Profile/Logo -->
     <div class="avatar-wrapper">
       <img src="logo.png" alt="ગુજરાતી TRADER Logo" class="avatar-img" />
     </div>
 
-    <!-- Updated Title -->
     <h1 class="brand-title">ગુજરાતી TRADER 😇</h1>
     
     <div class="channel-subtitle">
       <span>🏆</span> ગુજરાતનું No.1 Stock Market Channel
     </div>
 
-    <!-- Rating & Reviews -->
     <div class="reviews-container">
       <div class="stars">★★★★★</div>
       <div class="review-text">4.9/5 (2340 Reviews)</div>
     </div>
 
-    <!-- 3 Metrics Card Grid -->
     <div class="stats-row">
       <div class="stat-card">
         <h3>50K+</h3>
@@ -345,12 +330,10 @@
       </div>
     </div>
 
-    <!-- Single Main CTA Button -->
     <a href="https://t.me/+4OfhgIe-EygxNmNl" id="telegramJoinBtn" class="cta-btn">
       Join Free Telegram Channel →
     </a>
 
-    <!-- Pitch Text Section -->
     <div class="pitch-section">
       <h2>
         Get <span class="highlight">FREE Daily Calls</span><br />
@@ -361,12 +344,10 @@
       </p>
     </div>
 
-    <!-- Limited Free Access Banner -->
     <div class="access-banner">
       <span>🔥</span> Limited FREE Access Available
     </div>
 
-    <!-- Centered Feature Cards -->
     <div class="feature-list">
       <div class="feature-item">
         <span class="feature-icon">📊</span>
@@ -380,11 +361,10 @@
 
       <div class="feature-item">
         <span class="feature-icon">👥</span>
-        <span class="feature-title">50,000+ Membars Community</span>
+        <span class="feature-title">50,000+ Members Community</span>
       </div>
     </div>
 
-    <!-- Meta Ads Compliant Disclaimer -->
     <footer>
       <div class="disclaimer-title">Disclaimer:</div>
       This channel is for educational purposes only. Trading involves market risk. Please consult your financial advisor before making investment decisions.
@@ -392,84 +372,42 @@
 
   </div>
 
-  <!-- Meta Pixel Single Fire JavaScript -->
+  <!-- Meta Pixel Single Fire JavaScript (Fixed) -->
   <script>
-    // 1. Enter your Telegram Channel link below
-    const TELEGRAM_URL = "https://t.me/+4OfhgIe-EygxNmNl"; // 👈 REPLACE WITH YOUR TELEGRAM LINK
-
-  // 2. Strict Single Fire Lock
-
-    let isTracked = false;
-
+    const TELEGRAM_URL = "https://t.me/+4OfhgIe-EygxNmNl";
     const joinBtn = document.getElementById('telegramJoinBtn');
-
-
+    let memoryTracked = false;
 
     if (joinBtn) {
-
       joinBtn.addEventListener('click', function(event) {
-
         event.preventDefault();
 
+        let alreadyFired = memoryTracked;
+        try {
+          if (localStorage.getItem('tg_sub_tracked') === '1') {
+            alreadyFired = true;
+          }
+        } catch (e) {}
 
-
-        // अगर पहले से 1 बार क्लिक हो चुका है, तो दोबारा फायर नहीं होगा
-
-        if (!isTracked) {
-
-          isTracked = true; // Lock लग गया
-
-
+        if (!alreadyFired) {
+          memoryTracked = true;
+          try {
+            localStorage.setItem('tg_sub_tracked', '1');
+          } catch (e) {}
 
           if (typeof fbq === 'function') {
-
             fbq('track', 'Subscribe', {
-
               content_name: 'ગુજરાતી TRADER Telegram',
-
               status: 'success'
-
             });
-
           }
-
         }
 
-
-
-        // 2. Telegram Deep Link (सीधे ऐप खोलेगा)
-
-        var appUrl = "tg://join?invite=4OfhgIe-EygxNmNl";
-
-        var webUrl = "https://t.me/+4OfhgIe-EygxNmNl";
-
-        
-
-        window.location.href = appUrl;
-
         setTimeout(function() {
-
-          window.location.href = webUrl;
-
-        }, 1500);
-
+          window.location.href = TELEGRAM_URL;
+        }, 300);
       });
-
     }
-            var appUrl = "tg://join?invite=4OfhgIe-EygxNmNl";
-            var webUrl = "https://t.me/+4OfhgIe-EygxNmNl";
-
-            var start = Date.now();
-            window.location.href = appUrl;
-
-            // 3. Fallback: Agar App open na ho toh Web Link khulega
-            setTimeout(function() {
-                if (Date.now() - start < 2000) {
-                    window.location.href = webUrl;
-                }
-            }, 1500);
-        });
-    }   
   </script>
 </body>
 </html>
